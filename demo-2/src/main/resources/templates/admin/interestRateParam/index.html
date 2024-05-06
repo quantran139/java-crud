@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head :: head">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+	
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+	<!-- Site wrapper -->
+	<div class="wrapper">
+
+		<div th:replace="admin/fragments/header :: header"></div>
+		<!-- =============================================== -->
+
+		<!-- Left side column. contains the sidebar -->
+
+		<div th:replace="admin/fragments/sidebar :: sidebar"></div>
+		<!-- =============================================== -->
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>
+					<span>Danh mục mã lãi suất</span>
+				</h1>
+				
+				<!-- Button add modal -->
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target='#createModal'>
+				  Tạo mới
+				</button>
+				<!-- Button update modal --><!-- th:href="@{/admin/interestRateParam/findById(id=${interestRateParam.id})}" -->
+			
+				<a href="#" class="btn btn-warning editButton">Sửa</a>
+
+				
+			<!-- Button delete modal --><!--th:href="@{/admin/interestRateParam/delete(id=${interestRateParam.id})}"-->
+				<a  href="#" class="btn btn-danger deleteButton" >xoá</a>
+				
+				
+				<a href="http://localhost:8081/admin/export-to-excel" class="bi bi-file-excel">Export Excel</a>
+				
+				<!-- addModal -->
+				<div class="modal fade" id="createModal" tabindex = -1 role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+				  <form th:action="@{/admin/add}" method= "post" id="createModalForm" th:object="${interestRateParams}" >
+					  <div class="modal-dialog modal-dialog-centered" role="document">
+					    
+						    <div class="modal-content ">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalCenterTitle">Tạo mới mã lãi suất</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>             
+						      <div class="modal-body">
+						        	<div class="form-group-1 ">
+							        	<div class=" form-group-2 ">
+								            <label for="recipient-name" class="col-form-label ">ID</label>
+								            <input type="text" readonly class="form-control" id="id" name="id">
+								         </div>
+								         <div class=" form-group-2 ">
+								            <label for="recipient-name" class="col-form-label ">Mã lãi suất</label>
+								            <input type="text" class="form-control" minlength="3" id="interestRateParamName" name= "interestRateParamName" required>
+						        			
+						        		</div>  	
+							         </div>
+							         <div class="form-group-1">
+								         <div class=" form-group-2 ">
+								            <label for="recipient-name" class="col-form-label ">Mô tả</label>
+								            <input type="text" class="form-control" minlength="3" id="interestRateParamNote" name= "interestRateParamNote"required>
+								          
+								         </div>
+								         <div class=" form-group-2" id="selectStatus">
+								            <label for="recipient-name" class="col-form-label " >Trạng thái</label>
+								            <select class="" id="interestRateParamStatus" name= "interestRateParamStatus">
+								            	<option value="0" >Không sử dụng</option>
+								            	<option value="1" selected>Sử dụng</option>
+								            </select>
+								            
+								         </div>
+							         </div>
+							       	
+							       	
+							         <div id="error-message" class="invalid-feedback" style="color: red; font-size: 16px;"></div>
+						        
+						      </div>
+						      <div class="modal-footer submitButton">
+						        <button  type="submit" class="btn btn-primary col-xs-2 ">Lưu</button>
+						
+						      </div>
+					    	</div>
+					    
+					    
+					    </form>
+					    
+					  </div>
+				  
+				</div>
+				
+				
+				
+				<!-- updateModal -->
+				<div class="modal fade" id="updateModal" tabindex = -1 role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+				  <form th:action="@{/admin/update}" method="put" id="updateModalForm">
+
+					  <div class="modal-dialog modal-dialog-centered" role="document">
+					  
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalCenterTitle">Sửa mã lãi suất</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+							        	<div class="form-group-1 ">
+								        	<div class=" form-group-2 ">
+									            <label for="recipient-name" class="col-form-label ">ID</label>
+									            <input type="text" readonly class="form-control" id="idEdit" name="id">
+									         </div>
+									         <div class=" form-group-2 ">
+									            <label for="recipient-name" class="col-form-label ">Mã lãi suất</label>
+									            <input type="text" class="form-control" minlength="3" id="interestRateParamNameEdit" name= "interestRateParamName" required>
+							        		</div>  	
+								         </div>
+								         <div class="form-group-1">
+									         <div class=" form-group-2 ">
+									            <label for="recipient-name" class="col-form-label ">Mô tả</label>
+									            <input type="text" class="form-control" minlength="3" id="interestRateParamNoteEdit" name= "interestRateParamNote"required>
+									          
+									         </div>
+									         <div class=" form-group-2" id="selectStatus">
+									            <label for="recipient-name" class="col-form-label " >Trạng thái</label>
+									            <select class="" id="interestRateParamStatusEdit" name= "interestRateParamStatus">
+									            	<option value="0" >Không sử dụng</option>
+									            	<option value="1" >Sử dụng</option>
+									            </select>
+									            
+									         </div>
+								         </div>
+								         <div id="update-error-message" class="invalid-feedback" style="color: red; font-size: 16px;" ></div>
+							        
+							      </div>
+							      <div class="modal-footer submitButton">
+							        <button  type="submit" class="btn btn-primary col-xs-2 ">Lưu</button>
+							
+							      </div>
+						    </div>
+					    </form>
+					  </div>
+				</div>
+				
+				
+				<!--delete modal-->
+				<div class="modal" id="deleteModal" tabindex="-1" role="dialog" >
+				  <form>
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title">Bạn có chắc chắn muốn xoá bản ghi này?</h5>
+					        <input type="hidden" id="deleteId" name="id" value="">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        
+					      </div>
+					      <div class="modal-footer">
+					      	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					        <a href="" class="btn btn-danger" id="confirmDeleteButton">OK</a>
+					        
+					      </div>
+					    </div>
+					  </div>
+				  </form>
+				</div>
+			
+			
+			<div class="modal fade" id="selectRowModal" tabindex="-1" role="dialog" aria-labelledby="selectRowModalTitle" aria-hidden="true">
+			    <div class="modal-dialog" role="document">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <h5 class="modal-title" id="selectRowModalTitle">Thông báo</h5>
+			                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			                    <span aria-hidden="true">&times;</span>
+			                </button>
+			            </div>
+			            <div class="modal-body">
+			                Bạn chưa chọn bản ghi nào!!.
+			            </div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+			
+			</section>
+			
+			
+			<!-- popup  -->
+			
+			
+			<!-- Main content -->
+			<section class="content">
+				<div class="box">
+					<div class="box-header">
+						
+					</div>
+
+					<div class="box-body">
+						<div id="example2_wrapper">
+							
+									<table id="example2"
+										class="table table-bordered table-hover dataTable" role="grid"
+										aria-describedby="example2_info">
+										<thead>
+											<tr role="row">
+												<th>STT
+													</th>								
+					
+												<th>ID</th>
+												<th>Mã lãi suất</th>
+												<th>Trạng thái</th>
+												<th>Mô tả</th>
+												<th>Giá trị</th>
+												
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="interestRateParam : ${interestRateParams}" role="row" class="odd"
+												
+											>
+												
+												<td class="sorting_1"></td>
+												<td th:text="${interestRateParam.id}"></td>
+												<td th:text="${interestRateParam.interestRateParamName}"></td>
+												<td th:if="${interestRateParam.interestRateParamStatus}">Sử dụng</td>
+													<td th:if="${!interestRateParam.interestRateParamStatus}">Không Sử dụng</td>
+												<td th:text="${interestRateParam.interestRateParamNote}"></td>
+												<td th:text="${interestRateParam.interestRateParamValue}"></td>							
+											</tr>	
+											
+										</tbody>
+										
+									</table>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+
+				</div>
+
+
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<div th:replace="admin/fragments/footer :: footer"></div>
+
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- jQuery 3 -->
+
+	<div th:replace="admin/fragments/script :: script"></div>
+
+</body>
+</html>
